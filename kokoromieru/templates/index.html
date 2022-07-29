@@ -1,0 +1,248 @@
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>ココロミエル</title>
+        <link href="index.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <button type="button" id="button1" class="btn1" onclick="OnButtonClick1()">わいわい<br>したい</button>
+        <button type="button" id="button2" class="btn2" onclick="OnButtonClick2()">次<br>話たい</button>
+        <button type="button" class="btn3" onclick="onButtonClick3()">それな</button>
+        <button type="button" class="btn4" onclick="onButtonClick4()">いいね</button>
+        <h1>websocket chat</h1>
+        <input type="text" id="msg" value="> message"/>
+            <button id="sendBtn">send</button>
+            <ul id="rcv"></ul>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+        <script src="myscript2.js"></script>
+        <script src="button.js"></script>
+
+
+        <div class="container">
+            <p hidden id="waiwai" class="bound">
+                <span>わ</span>
+                <span>い</span>
+                <span>わ</span>
+                <span>い</span>
+                <span>し</span>
+                <span>た</span>
+                <span>い</span>
+            </p>
+        </div>
+
+        <div id="canvas"></div>
+        <div class="balloonoya">
+            <p class="balloon1" id="makeImg">次話します！！</p>
+        </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript">
+        var host = location.origin.replace('http', 'ws')+"/echo";
+        var ws = new WebSocket(host);
+
+        
+        ws.onopen = function(e) {
+
+            console.log("コネクションを開始しました。");
+
+        };
+        ws.onclose = function(e) {
+
+            console.log("コネクションが閉じました。");
+
+        };
+
+        ws.onmessage = function(message){
+            var message_data = JSON.parse(message.data);
+            var time = message_data['time'];
+            var message = message_data['message'];
+
+            var string_txt = "[" + time + "] - " + message
+
+
+            if (message == "sorena") {
+                sorenaAppend()
+            }
+            if (message == "like") {
+                likeAppend()
+            }
+            if (message == "waiwai") {
+                if (appearwaiwairue) {
+                if(flag[1] != true){                    appearwaiwai()
+
+
+
+                }                hanasuAppear()nsole.log(message)
+            ws.send(message);
+        });
+
+
+iwai        let num = 0;
+hidden:wa        let balls = [];
+        let bounds = 0.6;
+        let grav = 1;
+        var flag = new Array();
+        flag[0] = false;//waiwai
+        flag[1] = false;//hanasu
+
+        var target = new Array();
+
+        function setup() {
+            let canvas = createCanvas(600, 600);
+            canvas.parent('canvas');
+            colorMode(HSB, 3            if (flag.hidden == false) {
+                flag.hidden = true;
+            }
+            else {
+                flag.hidden = false;
+            }
+            */
+            message = "waiwai"
+            ws.send(message);
+
+        function appearwaiwai() {
+            target[0] = document.getElementById("button1");
+            var flag = document.getElementById("waiwai")
+            if (flag.hidden == false) {
+                flag.hidden = true;
+            }
+            else {
+                flag.hidden = false;
+            }
+        }
+
+        function OnButtonClick2() {
+            message = "hanasu"
+            ws.send(message)
+            /*
+            var wObjballoon = document.getElementById("makeImg");
+            if (wObjballoon.className == "balloon1") {
+                wObjballoon.className = "balloon";
+            } else {
+                wObjballoon.className = "balloon1";
+            }
+            */
+        }
+        function hanasuAppear(){
+            var wObjballoon = document.getElementById("makeImg");
+            if (wObjballoon.className == "balloon1") {
+                wObjballoon.className = "balloon";
+            } else {
+                wObjballoon.className = "balloon1";
+            }
+        }
+        function onButtonClick3() {
+            message = "sorena"
+            ws.send(message);
+        }
+        function onButtonClick4() {
+            message = "like"
+            ws.send(message);
+        }
+        function sorenaAppend() {
+            balls[num] = new Ball(color('#00ff00'));
+            num += 1
+            console.log(num)
+        }
+        function likeAppend() {
+            balls[num] = new Ball(color('#F067A6'));
+            num += 1
+            console.log(num)
+        }
+        function draw() {
+            background(0, 0, 20, 50);
+            //繰り返し処理によって配列の各要素にインスタンスの更新と表示処理を実行する
+            for (let i = 0; i < num; i++) {
+                balls[i].update();
+                balls[i].display();
+            }
+        }
+                //クラスの記述
+                class Ball {
+            constructor(c) {
+                //new Ball()で呼び出せる初期化処理
+                this.x = random(0, 600)
+                this.y = 0
+                this.sx = random(-5, 5);
+                this.sy = random(-5, 5);
+                this.c = c;
+                this.d = random(25, 50);
+                this.count = 0;
+            }
+            //スピードや跳ね返りなどの数値計算
+            update() {
+                //xyにスピードを加算
+                this.x = this.x + this.sx;
+                this.y = this.y + this.sy;
+
+                if (this.x + this.d / 2 > width) { //ｘが画面幅よりも大きいとき
+                    this.sx = this.sx * -1 * bounds;
+                }
+                if (this.x - this.d / 2 < 0) { //ｘが画面幅よりも大きいとき
+                    this.sx = this.sx * -1 * bounds;
+                }
+                if (this.y + this.d / 2 > height) { //yが画面幅よりも大きいとき
+                    this.sy = this.sy * -1 * bounds;
+                    this.y = height - 30;
+                    this.count++;
+                }
+
+                /*if (this.y - this.d / 2 < 0) { //yが画面幅よりも大きいとき
+                  this.sy = this.sy * -1 * bounds;
+                }*/
+                this.sy += grav;
+
+                if (this.count > 20) {
+                    this.sx = 0;
+                    this.sy = 0;
+                }
+            }
+            //図形描画  
+            display() {
+                fill(this.c);
+                noStroke();
+                ellipse(this.x, this.y, this.d, this.d);
+            }
+        }}
+        
+    </script>
+</html>
+
+
+         if (this.x + this.d / 2 > width) { //ｘが画面幅よりも大きいとき
+                    this.sx = this.sx * -1 * bounds;
+                }
+                if (this.x - this.d / 2 < 0) { //ｘが画面幅よりも大きいとき
+                    this.sx = this.sx * -1 * bounds;
+                }
+                if (this.y + this.d / 2 > height) { //yが画面幅よりも大きいとき
+                    this.sy = this.sy * -1 * bounds;
+                    this.y = height - 30;
+                    this.count++;
+                }
+
+                /*if (this.y - this.d / 2 < 0) { //yが画面幅よりも大きいとき
+                  this.sy = this.sy * -1 * bounds;
+                }*/
+                this.sy += grav;
+
+                if (this.count > 20) {
+                    this.sx = 0;
+                    this.sy = 0;
+                }
+            }
+            //図形描画  
+            display() {
+                fill(this.c);
+                noStroke();
+                ellipse(this.x, this.y, this.d, this.d);
+            }
+        }}
+        
+    </script>
+</html>
+
+
