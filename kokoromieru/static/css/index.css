@@ -1,0 +1,222 @@
+.container {
+    position: absolute;
+    left: 0px;
+    width: 100px;
+    height: 300px;
+}
+
+
+
+/*フォント*/
+.bound span {
+    font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0;
+    bottom: 50px;
+    margin: auto;
+    font-size: 5em;
+    font-weight: bold;
+    color: #71cdecbd;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+}
+
+
+/*アニメーション指定
+文字数に合わせてleftや開始時間（2つ目のs）を設定する*/
+.bound span:nth-child(1) {
+    left: 0.0em;
+    animation: bound-anim 0.8s 0.0s infinite;
+}
+
+.bound span:nth-child(2) {
+    left: 0.8em;
+    animation: bound-anim 0.8s 0.1s infinite;
+}
+
+.bound span:nth-child(3) {
+    left: 1.6em;
+    animation: bound-anim 0.8s 0.2s infinite;
+}
+
+.bound span:nth-child(4) {
+    left: 2.4em;
+    animation: bound-anim 0.8s 0.3s infinite;
+}
+
+.bound span:nth-child(5) {
+    left: 3.2em;
+    animation: bound-anim 0.8s 0.4s infinite;
+}
+
+.bound span:nth-child(6) {
+    left: 4.0em;
+    animation: bound-anim 0.8s 0.5s infinite;
+}
+
+.bound span:nth-child(7) {
+    left: 4.8em;
+    animation: bound-anim 0.8s 0.6s infinite;
+}
+
+
+/*アニメーションキーフレーム
+小さいフォントサイズの場合はtopの数値も縮小すると飛び過ぎない*/
+@keyframes bound-anim {
+
+    0%,
+    100% {
+        top: 0;
+        transform: scale(1);
+    }
+
+    30% {
+        top: -25%;
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    90% {
+        top: 0;
+        transform: scale(1.2, 0.8);
+    }
+}
+
+/*ボタンの位置変更*/
+
+
+.btn1 {
+    width: 100px;
+    height: 100px;
+    margin-left: 0px;
+    float: left;
+    position: absolute;
+    bottom: 20px;
+    left: 250px;
+
+}
+
+
+
+.btn2 {
+    width: 100px;
+    height: 100px;
+    margin-left: 0px;
+    float: left;
+    position: absolute;
+    bottom: 20px;
+    left: 350px;
+
+}
+
+.btn3 {
+    width: 75px;
+    height: 25px;
+    margin-left: 0px;
+    float: left;
+    position: absolute;
+    bottom: 20px;
+    left: 125px;
+    background-color: #00ff00;
+    /*変更点*/
+    opacity: 0.5;
+    /*変更点*/
+}
+
+.btn4 {
+    width: 75px;
+    height: 25px;
+    margin-left: 0px;
+    background-color: #F067A6;
+    /*変更点*/
+    opacity: 0.5;
+    /*変更点*/
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+
+
+}
+
+
+
+/*canvasのいち揃え*/
+#canvas {
+    position: absolute;
+    top: 20px;
+    opacity: 0.5;
+
+}
+
+/*話しますボタン*/
+.balloon1-left {
+    position: relative;
+    display: inline-block;
+    margin: 1.5em 0 1.5em 15px;
+    padding: 7px 10px;
+    min-width: 120px;
+    max-width: 100%;
+    color: #555;
+    font-size: 16px;
+    background: #e0edff;
+}
+
+.balloon1-left:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    margin-top: -15px;
+    border: 15px solid transparent;
+    border-right: 15px solid #e0edff;
+}
+
+.balloon1-left p {
+    margin: 0;
+    padding: 0;
+}
+
+/*話たいボタン案  */
+.balloon1 {
+    display: none;
+    /* 要素を非表示 */
+}
+
+.balloon {
+    position: absolute;
+    /* 親要素を基準 */
+    display: inline;
+    /* 要素をインラインとして表示 */
+    padding: 2px;
+    /* テキストの前後の余白 */
+    background-color: rgba(102, 250, 255, 0.5);
+    /* 背景色（透明度） */
+    width: 180px;
+    /* 吹き出し全体の幅 */
+    left: 1%;
+    /* 表示位置 */
+    font-size: 80%;
+    /* 文字サイズ */
+}
+
+.balloon:after {
+    border-left: 12px solid rgba(102, 250, 255, 0.5);
+    /* 吹き出し口の幅・色 */
+    border-top: 10px solid transparent;
+    /* 吹き出し口の高さ１／２ */
+    border-bottom: 10px solid transparent;
+    /* 吹き出し口の高さ１／２ */
+    right: -12px;
+    /* 吹き出し口の位置調整 */
+    top: 5%;
+    /* 吹き出し口の縦位置 */
+    content: "";
+    /* コンテンツの挿入 */
+    position: absolute;
+    /* 親要素を基準 */
+}
